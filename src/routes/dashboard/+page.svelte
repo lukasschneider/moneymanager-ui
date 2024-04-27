@@ -6,11 +6,11 @@ import {
 	} from "./index.js";
 import * as Card from "$lib/components/ui/card/index.js";
 import * as Tabs from "$lib/components/ui/tabs/index.js";
-import Activity from "lucide-svelte/icons/activity";
-import CreditCard from "lucide-svelte/icons/credit-card";
-import DollarSign from "lucide-svelte/icons/dollar-sign";
-import Users from "lucide-svelte/icons/users";
-    import Overview from "./overview.svelte";
+import HandCoins from "lucide-svelte/icons/hand-coins";
+import LandMark from "lucide-svelte/icons/landmark";
+import TrendingDown from "lucide-svelte/icons/trending-down";
+import TrendingUp from "lucide-svelte/icons/trending-up";
+import Overview from "./overview.svelte";
 </script>
 
 <div class="hidden flex-col sm:flex lg:flex md:flex">
@@ -41,7 +41,7 @@ import Users from "lucide-svelte/icons/users";
 							class="flex flex-row items-center justify-between space-y-0 pb-2"
 						>
 							<Card.Title class="text-sm font-medium">Kontostand</Card.Title>
-							<DollarSign class="h-4 w-4 text-muted-foreground" />
+							<LandMark class="h-5 w-5 text-muted-foreground" />
 						</Card.Header>
 						<Card.Content>
 							<div class="text-2xl font-bold">+3.500,20 €</div>
@@ -53,7 +53,7 @@ import Users from "lucide-svelte/icons/users";
 							class="flex flex-row items-center justify-between space-y-0 pb-2"
 						>
 							<Card.Title class="text-sm font-medium">Ausgaben</Card.Title>
-							<Users class="h-4 w-4 text-muted-foreground" />
+							<TrendingDown class="h-4 w-4 text-muted-foreground" />
 						</Card.Header>
 						<Card.Content>
 							<div class="text-2xl font-bold">-400 €</div>
@@ -65,7 +65,7 @@ import Users from "lucide-svelte/icons/users";
 							class="flex flex-row items-center justify-between space-y-0 pb-2"
 						>
 							<Card.Title class="text-sm font-medium">Einnahmen</Card.Title>
-							<CreditCard class="h-4 w-4 text-muted-foreground" />
+							<TrendingUp class="h-4 w-4 text-muted-foreground" />
 						</Card.Header>
 						<Card.Content>
 							<div class="text-2xl font-bold">+1500 €</div>
@@ -77,7 +77,7 @@ import Users from "lucide-svelte/icons/users";
 							class="flex flex-row items-center justify-between space-y-0 pb-2"
 						>
 							<Card.Title class="text-sm font-medium">Geld pro Monat nach Fixkosten</Card.Title>
-							<Activity class="h-4 w-4 text-muted-foreground" />
+							<HandCoins class="h-4 w-4 text-muted-foreground" />
 						</Card.Header>
 						<Card.Content>
 							<div class="text-2xl font-bold">978 €</div>

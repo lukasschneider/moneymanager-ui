@@ -52,12 +52,45 @@
 		},
 	];
 
-	const xTicks = data.map((d) => d.name);
-	const yTicks = [0, 250, 500, 750, 1000];
-	const padding = { top: 20, right: 15, bottom: 20, left: 45 };
+    let width = 500;
+    let height = 400;
 
-	let width = 500;
-	let height = 500;
+    const max = function() {
+        let v = 0
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].total >= v) {
+                v = data[i].total
+            }
+        }
+        if (v >= 10000) {
+            return Math.ceil(v/1000)*1000
+        }
+        if (v >= 1000) {
+            return Math.ceil(v/500)*500
+        }
+        return Math.ceil(v/100)*100
+    }();
+
+    const yTicks = function() {
+        let v = [0]
+        if (max > 5000 && max <= 10000) {
+            for (let i = max; i >= 0; i-=1000) {
+                v.push(i)
+            }
+        } else if (max > 1000 && max <= 5000) {
+            for (let i = max; i >= 0; i-=500) {
+                v.push(i)
+            }
+        } else {
+            for (let i = max; i >= 0; i-=100) {
+                v.push(i)
+            }
+        }
+        return v
+    }()
+
+	const xTicks = data.map((d) => d.name);
+	const padding = { top: 20, right: 15, bottom: 20, left: 45 };
 
 	function formatMobile(tick: number | string) {
 		return `'${tick.toString().slice(-2)}`;
@@ -90,7 +123,7 @@
 						x="57"
 						y="-4"
 						fill="#888888"
-						text-anchor="end"><tspan x="36" dy="0.355em">{tick} €</tspan></text
+						text-anchor="end"><tspan x="40" dy="0.355em">{tick} €</tspan></text
 					>
 				</g>
 			{/each}
