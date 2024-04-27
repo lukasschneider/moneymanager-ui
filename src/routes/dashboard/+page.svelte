@@ -2,7 +2,6 @@
 import {
 		DashboardMainNav,
 		UserNav,
-
 	} from "./index.js";
 import * as Card from "$lib/components/ui/card/index.js";
 import * as Tabs from "$lib/components/ui/tabs/index.js";
@@ -11,6 +10,7 @@ import LandMark from "lucide-svelte/icons/landmark";
 import TrendingDown from "lucide-svelte/icons/trending-down";
 import TrendingUp from "lucide-svelte/icons/trending-up";
 import Overview from "./overview.svelte";
+import RecentTransactions from "./recent-transactions.svelte";
 </script>
 
 <div class="hidden flex-col sm:flex lg:flex md:flex">
@@ -97,10 +97,11 @@ import Overview from "./overview.svelte";
 					</Card.Root>
 					<Card.Root class="col-span-3">
 						<Card.Header>
-							<Card.Title>Recent Sales</Card.Title>
-							<Card.Description>You made 265 sales this month.</Card.Description>
+							<Card.Title>Buchungen</Card.Title>
+							<Card.Description>Es gibt 250 Buchungen diesen Monat</Card.Description>
 						</Card.Header>
 						<Card.Content>
+                            <RecentTransactions />
 						</Card.Content>
 					</Card.Root>
 				</div>

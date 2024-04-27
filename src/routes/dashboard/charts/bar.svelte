@@ -53,7 +53,7 @@
 	];
 
     let width = 500;
-    let height = 400;
+    let height = 200;
 
     const max = function() {
         let v = 0
