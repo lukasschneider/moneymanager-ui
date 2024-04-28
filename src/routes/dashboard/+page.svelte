@@ -11,6 +11,7 @@ import TrendingDown from "lucide-svelte/icons/trending-down";
 import TrendingUp from "lucide-svelte/icons/trending-up";
 import Overview from "./overview.svelte";
 import RecentTransactions from "./recent-transactions.svelte";
+import DataTable from "./data-table.svelte";
 </script>
 
 <div class="hidden flex-col sm:flex lg:flex md:flex">
@@ -34,6 +35,9 @@ import RecentTransactions from "./recent-transactions.svelte";
 				<Tabs.Trigger value="incomes" >Einnahmen</Tabs.Trigger>
 				<Tabs.Trigger value="expense" >Ausgaben</Tabs.Trigger>
 			</Tabs.List>
+            <Tabs.Content value="incomes">
+                <DataTable />
+            </Tabs.Content>
 			<Tabs.Content value="overview" class="space-y-4">
 				<div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 					<Card.Root>

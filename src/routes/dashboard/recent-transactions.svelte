@@ -5,7 +5,7 @@
             type: "expense",
             date: "27.04.2024",
             value: "80,00",
-            name: "Konzert Bullet for my Valentine"
+            name: "Konzert"
         },
         {
             type: "income",
@@ -17,19 +17,19 @@
             type: "expense",
             date: "27.04.2024",
             value: "80,00",
-            name: "Konzert Bullet for my Valentine"
+            name: "Konzert"
         },
         {
             type: "expense",
             date: "27.04.2024",
             value: "80,00",
-            name: "Konzert Bullet for my Valentine"
+            name: "Konzert"
         },
         {
             type: "expense",
             date: "27.04.2024",
             value: "80,00",
-            name: "Konzert Bullet for my Valentine"
+            name: "Konzert"
         },
     ];
 </script>
@@ -51,9 +51,9 @@
             <p class="text-sm text-muted-foreground">{ d.date}</p>
         </div>
         {#if d.type == "income"}
-            <div class="ml-auto font-medium">+{d.value} €</div>
+            <div class="ml-auto text-green-600 font-medium">+{d.value} €</div>
         {:else if d.type == "expense"}
-            <div class="ml-auto font-medium">-{d.value} €</div>
+            <div class="ml-auto text-red-600 font-medium">-{d.value} €</div>
         {:else}
             <div class="ml-auto font-medium">{d.value} €</div>
         {/if}
