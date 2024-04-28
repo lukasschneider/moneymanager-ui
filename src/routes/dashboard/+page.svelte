@@ -1,17 +1,231 @@
 <script lang="ts">
-import {
-		DashboardMainNav,
-		UserNav,
-	} from "./index.js";
-import * as Card from "$lib/components/ui/card/index.js";
-import * as Tabs from "$lib/components/ui/tabs/index.js";
-import HandCoins from "lucide-svelte/icons/hand-coins";
-import LandMark from "lucide-svelte/icons/landmark";
-import TrendingDown from "lucide-svelte/icons/trending-down";
-import TrendingUp from "lucide-svelte/icons/trending-up";
-import Overview from "./overview.svelte";
-import RecentTransactions from "./recent-transactions.svelte";
-import DataTable from "./data-table.svelte";
+    import {
+            DashboardMainNav,
+            UserNav,
+        } from "./index.js";
+    import * as Card from "$lib/components/ui/card/index.js";
+    import * as Tabs from "$lib/components/ui/tabs/index.js";
+    import HandCoins from "lucide-svelte/icons/hand-coins";
+    import LandMark from "lucide-svelte/icons/landmark";
+    import TrendingDown from "lucide-svelte/icons/trending-down";
+    import TrendingUp from "lucide-svelte/icons/trending-up";
+    import Overview from "./overview.svelte";
+    import RecentTransactions from "./recent-transactions.svelte";
+    import DataTable from "./table/data-table.svelte";
+
+    export let incomesData = [
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Rückzahlung",
+            source: "Paypal",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Paypal",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Paypal",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+    ];
+
+    export let expenseData = [
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Rückzahlung",
+            source: "Paypal",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Paypal",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
+            title: "Rückzahlung",
+            category: "Paypal",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 49.99,
+        },
+        {
+            id: "e2a71f59-79d5-4128-8cdc-408564068150",
+            title: "Gehalt",
+            source: "Arbeitgeber",
+            category: "Gehalt",
+            date: "28.04.2024",
+            value: 2500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+        {
+            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
+            title: "Zinsen",
+            category: "Bankdepot",
+            source: "Bank",
+            date: "28.04.2024",
+            value: 500,
+        },
+    ];
 </script>
 
 <div class="hidden flex-col sm:flex lg:flex md:flex">
@@ -36,7 +250,10 @@ import DataTable from "./data-table.svelte";
 				<Tabs.Trigger value="expense" >Ausgaben</Tabs.Trigger>
 			</Tabs.List>
             <Tabs.Content value="incomes">
-                <DataTable />
+                <DataTable bind:data={incomesData}/>
+            </Tabs.Content>
+            <Tabs.Content value="expense">
+                <DataTable bind:data={expenseData}/>
             </Tabs.Content>
 			<Tabs.Content value="overview" class="space-y-4">
 				<div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -89,7 +306,7 @@ import DataTable from "./data-table.svelte";
 						</Card.Content>
 					</Card.Root>
 				</div>
-				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+				<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-7">
 					<Card.Root class="col-span-4">
 						<Card.Header>
 							<Card.Title>Ausgaben</Card.Title>

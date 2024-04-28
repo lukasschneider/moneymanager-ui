@@ -6,13 +6,14 @@
         createRender,
     } from "svelte-headless-table";
     import {
-        addPagination
+        addPagination,
+        addTableFilter,
     } from "svelte-headless-table/plugins";
     import DataTableActions from "./data-table-actions.svelte";
     import { readable } from "svelte/store";
     import * as Table from "$lib/components/ui/table";
     import { Button } from "$lib/components/ui/button";
-
+    import { Input } from "$lib/components/ui/input";
 
     type Incomes = {
         id: string;
@@ -23,122 +24,36 @@
         value: number;
     }
 
-    const data: Incomes[] = [
-        {
-            id: "e2a71f59-79d5-4128-8cdc-408564068150",
-            title: "Gehalt",
-            source: "Arbeitgeber",
-            category: "Gehalt",
-            date: "28.04.2024",
-            value: 2500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-        {
-            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
-            title: "Rückzahlung",
-            category: "Rückzahlung",
-            source: "Paypal",
-            date: "28.04.2024",
-            value: 49.99,
-        },
-        {
-            id: "e2a71f59-79d5-4128-8cdc-408564068150",
-            title: "Gehalt",
-            source: "Arbeitgeber",
-            category: "Gehalt",
-            date: "28.04.2024",
-            value: 2500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-        {
-            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
-            title: "Rückzahlung",
-            category: "Paypal",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 49.99,
-        },
-        {
-            id: "e2a71f59-79d5-4128-8cdc-408564068150",
-            title: "Gehalt",
-            source: "Arbeitgeber",
-            category: "Gehalt",
-            date: "28.04.2024",
-            value: 2500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-        {
-            id: "b6010689-d415-4175-92fb-c7b18de6fb87",
-            title: "Rückzahlung",
-            category: "Paypal",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 49.99,
-        },
-        {
-            id: "e2a71f59-79d5-4128-8cdc-408564068150",
-            title: "Gehalt",
-            source: "Arbeitgeber",
-            category: "Gehalt",
-            date: "28.04.2024",
-            value: 2500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-        {
-            id: "96975ba9-0343-496c-b265-dfb0b1183d30",
-            title: "Zinsen",
-            category: "Bankdepot",
-            source: "Bank",
-            date: "28.04.2024",
-            value: 500,
-        },
-    ];
+    type Expense = {
+        id: string;
+        title: string;
+        source: string;
+        category: string;
+        date: string;
+        value: number;
+    }
+    
+    export let data: Incomes[] | Expense[];
+
 
     const table = createTable(readable(data), {
         page: addPagination({
             initialPageSize: 9
+        }),
+        filter: addTableFilter({
+            fn: ({ filterValue, value }) =>
+            value.toLowerCase().includes(filterValue.toLowerCase()),
         }),
     });
     const columns = table.createColumns([
         table.column({
             accessor: "id",
             header: "ID",
+            plugins: {
+                filter: {
+                    exclude: true,
+                },
+            },
         }),
         table.column({
             accessor: "title",
@@ -166,12 +81,22 @@
                 }).format(value);
                 return formatted;
             },
+            plugins: {
+                filter: {
+                    exclude: true,
+                },
+            },
         }),
         table.column({
             accessor: ({ id }) => id,
             header: "",
             cell: ({ value }) => {
                 return createRender(DataTableActions, { id: value });
+            },
+            plugins: {
+                filter: {
+                    exclude: true,
+                },
             },
         }),
     ]);
@@ -189,7 +114,20 @@
         hasPreviousPage, 
         pageIndex 
     } = pluginStates.page;
+
+    const { 
+        filterValue 
+    } = pluginStates.filter;
+
 </script>
+<div class="flex items-center py-4">
+    <Input
+      class="max-w-sm"
+      placeholder="Suche..."
+      type="text"
+      bind:value={$filterValue}
+    />
+</div>
 <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
         <Table.Header>
@@ -221,7 +159,7 @@
                         <Subscribe attrs={cell.attrs()} let:attrs>
                         <Table.Cell {...attrs}>
                         {#if cell.id == "value"}
-                        <div class="text-right text-green-600">
+                        <div class="text-right">
                             <Render of={cell.render()} />
                         </div>
                         {:else}
