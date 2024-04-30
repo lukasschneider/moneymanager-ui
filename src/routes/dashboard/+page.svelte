@@ -6,12 +6,34 @@
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
     import HandCoins from "lucide-svelte/icons/hand-coins";
+    import Plus from "lucide-svelte/icons/plus";
     import LandMark from "lucide-svelte/icons/landmark";
     import TrendingDown from "lucide-svelte/icons/trending-down";
     import TrendingUp from "lucide-svelte/icons/trending-up";
     import Overview from "./overview.svelte";
     import RecentTransactions from "./recent-transactions.svelte";
     import DataTable from "./table/data-table.svelte";
+    import * as Dialog from "$lib/components/ui/dialog";
+    import { Button } from "$lib/components/ui/button";
+    import { Label } from "$lib/components/ui/label";
+    import { Input } from "$lib/components/ui/input";
+    import CalendarIcon from "lucide-svelte/icons/calendar";
+    import {
+        type DateValue,
+        DateFormatter,
+        getLocalTimeZone,
+    } from "@internationalized/date";
+    import { cn } from "$lib/utils.js";
+    import { Calendar } from "$lib/components/ui/calendar";
+    import * as Popover from "$lib/components/ui/popover";
+
+    const df = new DateFormatter("de-DE", {
+        dateStyle: "short",
+    });
+ 
+    let value: DateValue | undefined = undefined
+
+    let newEntryDalog = false;
 
     export let incomesData = [
         {
@@ -81,6 +103,10 @@
 		<div class="flex items-center justify-between space-y-2">
 			<h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
 			<div class="flex items-center space-x-2">
+				<Button size="sm" on:click={() => (newEntryDalog = true)}>
+                    <Plus class="h-4 w-4" />
+                    Neuer Eintrag
+				</Button>
 			</div>
 		</div>
 		<Tabs.Root value="overview" class="space-y-4">
@@ -170,3 +196,58 @@
 		</Tabs.Root>
 	</div>
 </div>
+
+<Dialog.Root bind:open={newEntryDalog}>
+    <Dialog.Content class="sm:max-w-[425px]">
+        <Dialog.Header>
+          <Dialog.Title>Neuer Eintrag</Dialog.Title>
+        </Dialog.Header>
+            <div class="grid gap-4 py-6">
+                <div class="grid grid-cols-4 items-center gap-4">
+                    <Label for="titel" class="text-right">Titel</Label>
+                    <Input id="title" placeholder="Titel" class="col-span-3" />                
+                </div>
+                <div class="grid grid-cols-4 items-center gap-4">
+                    <Label for="value" class="text-right">Betrag</Label>
+                    <Input id="value" placeholder="Betrag" class="col-span-3" />                
+                </div>
+                <div class="grid grid-cols-4 items-center gap-4">
+                    <Label for="category" class="text-right">Kategorie</Label>
+                    <Input id="category" placeholder="Kategorie" class="col-span-3" />                
+                </div>
+                <div class="grid grid-cols-4 items-center gap-4">
+                    <Label for="source" class="text-right">Quelle</Label>
+                    <Input id="source" placeholder="Quelle" class="col-span-3" />                
+                </div>
+                <div class="grid grid-cols-4 items-center gap-4">
+                    <Label for="date" class="text-right">Datum</Label>
+                    <Popover.Root openFocus>
+                        <Popover.Trigger asChild let:builder>
+                            <Button
+                                variant="outline"
+                                class={cn(
+                                    "w-[280px] justify-start text-left font-normal",
+                                    !value && "text-muted-foreground"
+                                )}
+                                builders={[builder]}
+                            >
+                            <CalendarIcon class="mr-2 h-4 w-4" />
+                            {value ? df.format(value.toDate(getLocalTimeZone())) : "Datum auswählen"}
+                            </Button>
+                        </Popover.Trigger>
+                        <Popover.Content class="w-auto p-0">
+                            <Calendar bind:value initialFocus />
+                        </Popover.Content>
+                    </Popover.Root>                
+                </div>
+            </div>
+        <Dialog.Footer>
+            <Button class="text-red-600" on:click={() => (newEntryDalog = false)}>
+                Abbrechen 
+            </Button>
+            <Button class="text-green-600" on:click={() => (newEntryDalog = false)}>
+                Bestätigen 
+            </Button>
+        </Dialog.Footer>
+    </Dialog.Content>
+</Dialog.Root>
