@@ -144,7 +144,9 @@
                             <Render of={cell.render()} />
                         </div>
                         {:else}
+                        <div class="text-left">
                             <Render of={cell.render()} />
+                        </div>
                         {/if}
                     </Table.Head>
                 </Subscribe>

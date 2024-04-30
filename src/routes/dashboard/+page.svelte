@@ -13,11 +13,9 @@
     import RecentTransactions from "./recent-transactions.svelte";
     import DataTable from "./table/data-table.svelte";
 
-    import { v4 as uuid4 } from 'uuid';
-
     export let incomesData = [
         {
-            id: uuid4(),
+            id: "1",
             title: "Gehalt",
             source: "Arbeitgeber",
             category: "Gehalt",
@@ -25,7 +23,7 @@
             value: 3000,
         },
         {
-            id: uuid4(),
+            id: "2",
             title: "Zinsen",
             category: "Bankdepot",
             source: "Bank",
@@ -36,7 +34,7 @@
 
     export let expenseData = [
         {
-            id: uuid4(),
+            id: "25",
             title: "Spotify",
             source: "Paypal",
             category: "Abonnements",
@@ -44,7 +42,7 @@
             value: 17.99,
         },
         {
-            id: uuid4(),
+            id: "13",
             title: "Amazon Prime",
             category: "Abonnements",
             source: "Bank",
@@ -52,7 +50,7 @@
             value: 8.99,
         },
         {
-            id: uuid4(),
+            id: "20",
             title: "Discord Nitro",
             category: "Abonnements",
             source: "Paypal",
@@ -60,7 +58,7 @@
             value: 2.99,
         },
         {
-            id: uuid4(),
+            id: "19",
             title: "Disney Plus",
             category: "Abonnements",
             source: "Paypal",
