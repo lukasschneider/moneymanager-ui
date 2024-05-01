@@ -26,9 +26,6 @@
 		</DropdownMenu.Label>
 		<DropdownMenu.Separator />
 		<DropdownMenu.Group>
-			<DropdownMenu.Item>
-				Profil
-			</DropdownMenu.Item>
 			<DropdownMenu.Item href="/settings">
 				Einstellungen
 			</DropdownMenu.Item>
