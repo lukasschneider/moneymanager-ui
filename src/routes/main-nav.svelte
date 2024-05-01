@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { cn } from "$lib/utils.js";
-
+    import Package2 from "lucide-svelte/icons/package-2";
 	let site: string | undefined | null = undefined;
 	export { site as currentSite};
 </script>
 
 <nav class="flex items-center space-x-4 sm:space-x-4 md:space-x-4 lg:space-x-6">
+    <a href="##" class="flex items-center gap-2 text-lg font-semibold md:text-base">
+        <Package2 class="h-6 w-6" />
+        <span class="sr-only">Acme Inc</span>
+      </a>
     {#if site == 'dashboard'}
 	<a  
         href="/dashboard" 
