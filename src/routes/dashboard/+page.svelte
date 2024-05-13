@@ -5,6 +5,7 @@
         } from "./index.js";
     import * as Card from "$lib/components/ui/card/index.js";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
+    import * as Select from "$lib/components/ui/select/index.js";
     import HandCoins from "lucide-svelte/icons/hand-coins";
     import Plus from "lucide-svelte/icons/plus";
     import LandMark from "lucide-svelte/icons/landmark";
@@ -34,6 +35,12 @@
     let value: DateValue | undefined = undefined
 
     let newEntryDalog = false;
+
+    const categories = [
+        { value: "gehalt", label: "Gehalt", selected: false },
+        { value: "bankdepot", label: "Bankdepot", selected: false },
+        { value: "abonnements", label: "Abonnements", selected: true }
+    ];
 
     export let incomesData = [
         {
@@ -212,8 +219,27 @@
                     <Input id="value" placeholder="Betrag" class="col-span-3" />                
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
-                    <Label for="category" class="text-right">Kategorie</Label>
-                    <Input id="category" placeholder="Kategorie" class="col-span-3" />                
+                    <Label for="value" class="text-right">Kategorie</Label>
+                    <Select.Root portal={null} >
+                        <Select.Trigger class="col-span-3">
+                            <Select.Value placeholder="Wähle eine Kategorie" />
+                        </Select.Trigger>
+                        <Select.Content>
+                            <Select.Group>
+                                <Select.Label>Kategorien</Select.Label>
+                                    {#each categories as categorie}
+                                        {#if categorie.selected == true}
+                                            <Select.Item value={categorie.value} label={categorie.label}
+                                            >{categorie.label}</Select.Item>
+                                        {:else}
+                                            <Select.Item value={categorie.value} label={categorie.label}
+                                            >{categorie.label}</Select.Item>
+                                        {/if}
+                                    {/each}
+                            </Select.Group>
+                        </Select.Content>
+                        <Select.Input name="categorie" />
+                    </Select.Root>             
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
                     <Label for="source" class="text-right">Quelle</Label>

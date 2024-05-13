@@ -26,7 +26,7 @@
         </div>
       </div>
       <div>
-          <Button >Anmelden</Button>
+          <Button class="w-full" href="/dashboard">Anmelden</Button>
       </div>
     </form>
   </div>

@@ -2,6 +2,7 @@
     import Ellipsis from "lucide-svelte/icons/ellipsis";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import * as Select from "$lib/components/ui/select";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Button } from "$lib/components/ui/button";
     import { Label } from "$lib/components/ui/label";
@@ -21,6 +22,14 @@
     const df = new DateFormatter("de-DE", {
         dateStyle: "short",
     });
+
+    const categories = [
+        { value: "gehalt", label: "Gehalt", selected: false },
+        { value: "bankdepot", label: "Bankdepot", selected: false },
+        { value: "abonnements", label: "Abonnements", selected: true }
+    ];
+
+    let selected = { value: "abonnements", label: "Abonnements", selected: true }
  
     let value: DateValue | undefined = undefined
     value = new CalendarDate(2024, 4, 28)
@@ -28,6 +37,7 @@
     let deleteDialog = false;
     let detailsDialog= false;
     let editDialog = false;
+
 </script>
  
 <DropdownMenu.Root>
@@ -108,8 +118,27 @@
                     <Input id="value" value="17,99" class="col-span-3" />                
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
-                    <Label for="category" class="text-right">Kategorie</Label>
-                    <Input id="category" value="Freizeit" class="col-span-3" />                
+                    <Label for="value" class="text-right">Kategorie</Label>
+                    <Select.Root portal={null} bind:selected>
+                        <Select.Trigger class="col-span-3">
+                            <Select.Value placeholder="Wähle eine Kategorie" />
+                        </Select.Trigger>
+                        <Select.Content>
+                            <Select.Group>
+                                <Select.Label>Kategorien</Select.Label>
+                                    {#each categories as categorie}
+                                        {#if categorie.selected == true}
+                                            <Select.Item value={categorie.value} label={categorie.label}
+                                            >{categorie.label}</Select.Item>
+                                        {:else}
+                                            <Select.Item value={categorie.value} label={categorie.label}
+                                            >{categorie.label}</Select.Item>
+                                        {/if}
+                                    {/each}
+                            </Select.Group>
+                        </Select.Content>
+                        <Select.Input name="categorie" />
+                    </Select.Root>             
                 </div>
                 <div class="grid grid-cols-4 items-center gap-4">
                     <Label for="source" class="text-right">Quelle</Label>
